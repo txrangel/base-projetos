@@ -5,56 +5,33 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserProfileUpdate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Services\UserProfileService;
 
 class UserProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
+    protected $UserprofileService;
+
+    public function __construct(UserProfileService $userProfileService)
+    {
+        $this->UserprofileService = $userProfileService;
+    }
     public function edit(Request $request): View
     {
         return view('user.profile.edit', [
             'user' => $request->user(),
         ]);
     }
-
-    /**
-     * Update the user's profile information.
-     */
     public function update(UserProfileUpdate $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        try {
+            if ($this->UserprofileService->update($request))
+                return Redirect::route('user.profile.edit')->with(key: 'success', value: 'Perfil alterado!');
+            else
+                return back()->with(key: 'error', value: "Perfil não alterado!")->withInput();
+        } catch (\Exception $e) {
+            return back()->with(key: 'error', value: $e->getMessage())->withInput();
         }
-
-        $request->user()->save();
-
-        return Redirect::route('user.profile.edit')->with('status', 'profile-updated');
-    }
-
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
     }
 }
