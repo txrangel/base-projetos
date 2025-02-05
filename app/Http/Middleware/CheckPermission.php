@@ -16,9 +16,9 @@ class CheckPermission
      */
     public function handle(Request $request, Closure $next, string $permission): Response
     {
-        if (!Auth::user()->profile->permissions->contains('name', $permission)) {
-            abort(403, 'Unauthorized action.');
-        }
+        // if (!Auth::user()->profile->permissions->contains('name', $permission)) {
+        //     abort(403, 'Unauthorized action.');
+        // }
 
         return $next($request);
     }
