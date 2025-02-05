@@ -35,7 +35,7 @@
                                         {{ $permissao->id }}
                                     </th>
                                     <td class="px-6 py-4">
-                                        {{ $permissao->nome }}
+                                        {{ $permissao->name }}
                                     </td>
                                     <td class="px-6 py-4 flex justify-center space-x-4">
                                         <a href="{{ route('permissions.edit', $permissao->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">

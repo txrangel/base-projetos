@@ -35,7 +35,7 @@
                                         {{ $perfil->id }}
                                     </th>
                                     <td class="px-6 py-4">
-                                        {{ $perfil->nome }}
+                                        {{ $perfil->name }}
                                     </td>
                                     <td class="px-6 py-4 flex justify-center space-x-4">
                                         <a href="{{ route('profiles.edit', $perfil->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">
