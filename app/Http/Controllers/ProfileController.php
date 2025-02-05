@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileCreateUpdate;
 use App\Services\ProfileService;
-use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -27,7 +27,7 @@ class ProfileController extends Controller
         $perfil  = $this->profileService->findById(id: $id);
         return view(view: 'profiles.edit', data: compact(var_name: 'perfil'));
     }
-    public function store(Request $request)
+    public function store(ProfileCreateUpdate $request)
     {
         try {
             $this->profileService->create(data: $request->all());
@@ -36,7 +36,7 @@ class ProfileController extends Controller
             return back()->with(key: 'error', value: $e->getMessage())->withInput();
         }
     }
-    public function update(Request $request,int $id)
+    public function update(ProfileCreateUpdate $request,int $id)
     {
         try {
             $this->profileService->update(id: $id, data: $request->all());

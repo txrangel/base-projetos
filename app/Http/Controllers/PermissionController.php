@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PermissionCreateUpdate;
 use App\Services\PermissionService;
-use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {
@@ -27,7 +27,7 @@ class PermissionController extends Controller
         $permissao  = $this->permissionService->findById(id: $id);
         return view(view: 'permissions.edit', data: compact(var_name: 'permissao'));
     }
-    public function store(Request $request)
+    public function store(PermissionCreateUpdate $request)
     {
         try {
             $this->permissionService->create(data: $request->all());
@@ -36,7 +36,7 @@ class PermissionController extends Controller
             return back()->with(key: 'error', value: $e->getMessage())->withInput();
         }
     }
-    public function update(Request $request,int $id)
+    public function update(PermissionCreateUpdate $request,int $id)
     {
         try {
             $this->permissionService->update(id: $id, data: $request->all());
