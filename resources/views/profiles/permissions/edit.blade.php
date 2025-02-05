@@ -8,15 +8,15 @@
                 <section class="mt-4 relative overflow-auto">
                     <header>
                         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                            {{ __('Editar Permissões do Perfil: ') }} {{ $perfil->name }}
+                            {{ __('Editar Permissões do Perfil: ') }} {{ $profile->name }}
                         </h2>
 
                         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                            {{ __('Selecione as permissões que deseja atrelar ao perfil.') }}
+                            {{ __('Selecione as permissões que deseja atrelar ao profile.') }}
                         </p>
                     </header>
 
-                    <form action="{{ route('profiles.permissions.update', $perfil->id) }}" method="POST" class="mt-6 space-y-6">
+                    <form action="{{ route('profiles.permissions.update', $profile->id) }}" method="POST" class="mt-6 space-y-6">
                         @csrf
                         @method('PUT')
 
@@ -27,7 +27,7 @@
                                     <li>
                                         <input type="checkbox" id="permission_{{ $permission->id }}" name="permissions[]"
                                             value="{{ $permission->id }}" class="hidden peer"
-                                            {{ $perfil->permissions->contains($permission->id) ? 'checked' : '' }}>
+                                            {{ $profile->permissions->contains($permission->id) ? 'checked' : '' }}>
                                         <label for="permission_{{ $permission->id }}"
                                             class="inline-flex justify-between w-full h-12 p-2 overflow-hidden shadow-md text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 hover:text-gray-600 peer-checked:text-gray-600 hover:bg-gray-50">
                                             <div class="block">

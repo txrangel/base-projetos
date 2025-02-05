@@ -29,19 +29,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($perfis as $perfil)
+                            @foreach ($perfis as $profile)
                                 <tr class="{{ $loop->iteration % 2 == 0 ? 'bg-gray-50 dark:bg-gray-800' : 'bg-white dark:bg-gray-900' }} border-b dark:border-gray-700">
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $perfil->id }}
+                                        {{ $profile->id }}
                                     </th>
                                     <td class="px-6 py-4">
-                                        {{ $perfil->name }}
+                                        {{ $profile->name }}
                                     </td>
                                     <td class="px-6 py-4 flex justify-center space-x-4">
-                                        <a href="{{ route('profiles.edit', $perfil->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">
+                                        <a href="{{ route('profiles.edit', $profile->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">
                                             {{ __('Editar') }}
                                         </a>
-                                        <button onclick="openDeleteModal('Você tem certeza que deseja excluir o perfil: {{ $perfil->name }}?', '{{ route('profiles.destroy', $perfil->id) }}')"
+                                        <button onclick="openDeleteModal('Você tem certeza que deseja excluir o profile: {{ $profile->name }}?', '{{ route('profiles.destroy', $profile->id) }}')"
                                                 class="text-red-600 dark:text-red-500 hover:underline">
                                             {{ __('Excluir') }}
                                         </button>

@@ -29,8 +29,8 @@ class ProfileController extends Controller
     }
     public function edit(int $id): View
     {
-        $perfil  = $this->profileService->findById(id: $id);
-        return view(view: 'profiles.edit', data: compact(var_name: 'perfil'));
+        $profile  = $this->profileService->findById(id: $id);
+        return view(view: 'profiles.edit', data: compact(var_name: 'profile'));
     }
     public function store(ProfileCreateUpdate $request): RedirectResponse
     {
@@ -61,18 +61,18 @@ class ProfileController extends Controller
     }
     public function editPermissions(int $id,PermissionService $permissionService): View
     {
-        $perfil         = $this->profileService->findById(id: $id);
+        $profile         = $this->profileService->findById(id: $id);
         $permissions    = $permissionService->getAllPermissions();
-        return view(view: 'profiles.permissions.edit', data: compact(var_name: ['perfil', 'permissions']));
+        return view(view: 'profiles.permissions.edit', data: compact(var_name: ['profile', 'permissions']));
     }
 
     public function updatePermissions(Request $request, int $id): RedirectResponse
     {
         try {
             $permissionIds = $request->input('permissions', []);
-            $perfil         = $this->profileService->findById(id: $id);
-            $this->profileService->syncPermissions($perfil, $permissionIds);
-            return redirect()->route('profiles.index')->with('success', 'Permissões do perfil alteradas com sucesso!');
+            $profile         = $this->profileService->findById(id: $id);
+            $this->profileService->syncPermissions($profile, $permissionIds);
+            return redirect()->route('profiles.index')->with('success', 'Permissões do profile alteradas com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage());
         }
