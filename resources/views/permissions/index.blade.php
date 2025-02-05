@@ -29,19 +29,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($permissions as $permissao)
+                            @foreach ($permissions as $permission)
                                 <tr class="{{ $loop->iteration % 2 == 0 ? 'bg-gray-50 dark:bg-gray-800' : 'bg-white dark:bg-gray-900' }} border-b dark:border-gray-700">
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $permissao->id }}
+                                        {{ $permission->id }}
                                     </th>
                                     <td class="px-6 py-4">
-                                        {{ $permissao->name }}
+                                        {{ $permission->name }}
                                     </td>
                                     <td class="px-6 py-4 flex justify-center space-x-4">
-                                        <a href="{{ route('permissions.edit', $permissao->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">
+                                        <a href="{{ route('permissions.edit', $permission->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">
                                             {{ __('Editar') }}
                                         </a>
-                                        <button onclick="openDeleteModal('Você tem certeza que deseja excluir essa permissão: {{ $permissao->name }} ?','{{ route('permissions.destroy', $permissao->id) }}')" 
+                                        <button onclick="openDeleteModal('Você tem certeza que deseja excluir essa permissão: {{ $permission->name }} ?','{{ route('permissions.destroy', $permission->id) }}')" 
                                                 class="text-red-600 dark:text-red-500 hover:underline">
                                             {{ __('Excluir') }}
                                         </button>

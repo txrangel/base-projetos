@@ -27,8 +27,8 @@ class PermissionController extends Controller
     }
     public function edit(int $id): View
     {
-        $permissao  = $this->permissionService->findById(id: $id);
-        return view(view: 'permissions.edit', data: compact(var_name: 'permissao'));
+        $permission  = $this->permissionService->findById(id: $id);
+        return view(view: 'permissions.edit', data: compact(var_name: 'permission'));
     }
     public function store(PermissionCreateUpdate $request): RedirectResponse
     {
