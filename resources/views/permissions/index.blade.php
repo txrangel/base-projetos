@@ -41,7 +41,7 @@
                                         <a href="{{ route('permission.edit', $permissao->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">
                                             {{ __('Editar') }}
                                         </a>
-                                        <button onclick="openDeleteModal('Você tem certeza que deseja excluir o perfil: {{ $permissao->nome }} ?','{{ route('permission.destroy', $permissao->id) }}')" 
+                                        <button x-on:click="$dispatch('open-delete-modal', { name: 'confirm-deletion', message: 'Você tem certeza que deseja excluir a permissão: {{ $permissao->nome }}?', action: '{{ route('permission.destroy', $permissao->id) }}' })"
                                                 class="text-red-600 dark:text-red-500 hover:underline">
                                             {{ __('Excluir') }}
                                         </button>
@@ -61,5 +61,5 @@
 </div>
 
 <!-- Modal de Confirmação de Exclusão -->
-{{-- @include('components.deleteModal') --}}
+@include('components.x-delete-modal')
 @endsection
