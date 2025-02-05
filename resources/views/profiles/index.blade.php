@@ -41,7 +41,7 @@
                                         <a href="{{ route('profiles.edit', $perfil->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">
                                             {{ __('Editar') }}
                                         </a>
-                                        <button x-on:click="$dispatch('open-delete-modal', { name: 'confirm-deletion', message: 'Você tem certeza que deseja excluir o perfil: {{ $perfil->nome }}?', action: '{{ route('profiles.destroy', $perfil->id) }}' })"
+                                        <button onclick="openDeleteModal('Você tem certeza que deseja excluir o perfil: {{ $perfil->name }}?', '{{ route('profiles.destroy', $perfil->id) }}')"
                                                 class="text-red-600 dark:text-red-500 hover:underline">
                                             {{ __('Excluir') }}
                                         </button>
@@ -61,5 +61,5 @@
 </div>
 
 <!-- Modal de Confirmação de Exclusão -->
-@include('components.x-delete-modal')
+@include('components.delete-modal')
 @endsection

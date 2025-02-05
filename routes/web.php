@@ -25,7 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/{id}/update', 'update')
             ->name('update')
             ->middleware(CheckPermission::class . ':profile.update');
-        Route::delete('/', 'destroy')
+        Route::delete('/{id}/destroy', 'destroy')
             ->name('destroy')
             ->middleware(CheckPermission::class . ':profile.destroy');
     });
@@ -46,7 +46,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/{id}/update', 'update')
             ->name('update')
             ->middleware(CheckPermission::class . ':permission.update');
-        Route::delete('/', 'destroy')
+        Route::delete('/{id}/destroy', 'destroy')
             ->name('destroy')
             ->middleware(CheckPermission::class . ':permission.destroy');
     });
