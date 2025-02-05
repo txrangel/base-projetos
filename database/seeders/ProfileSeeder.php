@@ -14,6 +14,7 @@ class ProfileSeeder extends Seeder
     public function run()
     {
         Profile::create(['name' => 'Admin']);
-        Profile::create(['name' => 'User']);
+        Profile::create(['name' => 'Editor']);
+        Profile::create(['name' => 'Viewer']);
     }
 }
