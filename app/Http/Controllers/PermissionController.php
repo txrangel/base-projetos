@@ -15,8 +15,8 @@ class PermissionController extends Controller
     }
     public function index()
     {
-        $permissions = $this->permissionService->getAllPermissions();
-        return view('permissions.index', compact('permissions'));
+        $permissions = $this->permissionService->getPaginate();
+        return view(view: 'permissions.index', data: compact(var_name: 'permissions'));
     }
     public function create()
     {
