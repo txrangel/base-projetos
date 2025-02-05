@@ -45,4 +45,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Relação muitos-para-muitos com Profile
+    public function profiles()
+    {
+        return $this->belongsToMany(Profile::class, 'profile_user');
+    }
 }

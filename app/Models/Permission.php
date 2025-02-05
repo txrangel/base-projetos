@@ -10,4 +10,9 @@ class Permission extends Model
     use HasFactory;
     protected $table = 'permissions';
     protected $fillable = ['name'];
+    // Relação muitos-para-muitos com Profile
+    public function profiles()
+    {
+        return $this->belongsToMany(Profile::class, 'profile_permission');
+    }
 }
