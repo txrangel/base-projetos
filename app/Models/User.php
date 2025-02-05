@@ -51,4 +51,13 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Profile::class, 'profile_user');
     }
+    public function hasPermission(string $permission): bool
+    {
+        foreach ($this->profiles as $profile) {
+            if ($profile->permissions->contains('name', $permission)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
