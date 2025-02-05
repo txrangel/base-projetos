@@ -20,8 +20,8 @@ class ProfileController extends Controller
     }
     public function index(): View
     {
-        $perfis = $this->profileService->getPaginate();
-        return view(view: 'profiles.index', data: compact(var_name: 'perfis'));
+        $profiles = $this->profileService->getPaginate();
+        return view(view: 'profiles.index', data: compact(var_name: 'profiles'));
     }
     public function create(): View
     {

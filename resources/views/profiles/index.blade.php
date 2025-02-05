@@ -29,7 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($perfis as $profile)
+                            @foreach ($profiles as $profile)
                                 <tr class="{{ $loop->iteration % 2 == 0 ? 'bg-gray-50 dark:bg-gray-800' : 'bg-white dark:bg-gray-900' }} border-b dark:border-gray-700">
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $profile->id }}
@@ -53,7 +53,7 @@
                 </section>
                 <!-- Adicione a paginação aqui -->
                 <div class="mt-4">
-                    {{ $perfis->links() }}
+                    {{ $profiles->links() }}
                 </div>
             </div>
         </div>

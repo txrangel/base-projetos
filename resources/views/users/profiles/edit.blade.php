@@ -12,7 +12,7 @@
                             </h2>
 
                             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                {{ __('Selecione os perfis que deseja atrelar ao usuário.') }}
+                                {{ __('Selecione os profiles que deseja atrelar ao usuário.') }}
                             </p>
                         </header>
 
