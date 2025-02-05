@@ -31,7 +31,7 @@ class ProfileController extends Controller
     {
         try {
             $this->profileService->create(data: $request->all());
-            return redirect()->route(route: 'profiles.index')->with('success', value: 'Perfil criado com sucesso!');
+            return redirect()->route(route: 'profiles.index')->with(key: 'success', value: 'Perfil criado com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage())->withInput();
         }

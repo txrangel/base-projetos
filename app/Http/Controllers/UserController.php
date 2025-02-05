@@ -32,7 +32,7 @@ class UserController extends Controller
     {
         try {
             $this->userService->create(data: $request->all());
-            return redirect()->route(route: 'users.index')->with('success', value: 'Perfil criado com sucesso!');
+            return redirect()->route(route: 'users.index')->with(key: 'success', value: 'Perfil criado com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage())->withInput();
         }

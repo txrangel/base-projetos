@@ -31,7 +31,7 @@ class PermissionController extends Controller
     {
         try {
             $this->permissionService->create(data: $request->all());
-            return redirect()->route(route: 'permissions.index')->with('success', value: 'Permissão criada com sucesso!');
+            return redirect()->route(route: 'permissions.index')->with(key: 'success', value: 'Permissão criada com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage())->withInput();
         }
