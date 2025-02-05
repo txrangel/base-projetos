@@ -16,10 +16,13 @@ class CheckPermission
      */
     public function handle(Request $request, Closure $next, string $permission): Response
     {
-        // if (!Auth::user()->profile->permissions->contains('name', $permission)) {
-        //     abort(403, 'Unauthorized action.');
-        // }
-
+        $user = Auth::user();
+        foreach ($user->profiles as $profile) {
+            if ($profile->permissions->contains('name', $permission)) {
+                return $next($request);
+            }
+        }
+        abort(403, 'Sem autorização.');
         return $next($request);
     }
 }
