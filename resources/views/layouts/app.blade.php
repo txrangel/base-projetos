@@ -29,7 +29,13 @@
 
             <!-- Page Content -->
             <main>
-                {{ $slot }}
+                {{-- @if (session('sucess'))
+                    @include('components.alerts.sucess')
+                @endif
+                @if (session('error'))
+                    @include('components.alerts.error')
+                @endif --}}
+                @yield('content')
             </main>
         </div>
     </body>
