@@ -16,7 +16,7 @@
                         </p>
                     </header>
 
-                    <form method="post" action="{{ route('profile.store') }}" class="mt-2 space-y-2 p-2">
+                    <form method="post" action="{{ route('profiles.store') }}" class="mt-2 space-y-2 p-2">
                         @csrf
 
                         <div>

@@ -6,7 +6,7 @@
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="space-x-4">
-                    <a href="{{ route('permission.create') }}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center my-8 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">
+                    <a href="{{ route('permissions.create') }}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center my-8 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">
                         {{ __('Nova Permissão') }}
                     </a>
                 </div>
@@ -38,10 +38,10 @@
                                         {{ $permissao->nome }}
                                     </td>
                                     <td class="px-6 py-4 flex justify-center space-x-4">
-                                        <a href="{{ route('permission.edit', $permissao->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">
+                                        <a href="{{ route('permissions.edit', $permissao->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">
                                             {{ __('Editar') }}
                                         </a>
-                                        <button x-on:click="$dispatch('open-delete-modal', { name: 'confirm-deletion', message: 'Você tem certeza que deseja excluir a permissão: {{ $permissao->nome }}?', action: '{{ route('permission.destroy', $permissao->id) }}' })"
+                                        <button x-on:click="$dispatch('open-delete-modal', { name: 'confirm-deletion', message: 'Você tem certeza que deseja excluir a permissão: {{ $permissao->nome }}?', action: '{{ route('permissions.destroy', $permissao->id) }}' })"
                                                 class="text-red-600 dark:text-red-500 hover:underline">
                                             {{ __('Excluir') }}
                                         </button>

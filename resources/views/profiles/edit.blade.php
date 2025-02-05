@@ -16,7 +16,7 @@
                         </p>
                     </header>
 
-                    <form method="post" action="{{ route('profile.update', $perfil->id) }}" class="mt-6 space-y-6">
+                    <form method="post" action="{{ route('profiles.update', $perfil->id) }}" class="mt-6 space-y-6">
                         @csrf
                         @method('PUT')
                         <div>

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view(uri: '/', view: 'dashboard')->name(name: 'dashboard');
 
-    Route::prefix('profile')->name('profile.')->controller(ProfileController::class)->group(function () {
+    Route::prefix('profiles')->name('profiles.')->controller(ProfileController::class)->group(function () {
         Route::get('/', 'index')
             ->name('index')
             ->middleware(CheckPermission::class . ':profile.index');
@@ -30,7 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->middleware(CheckPermission::class . ':profile.destroy');
     });
 
-    Route::prefix('permission')->name('permission.')->controller(PermissionController::class)->group(function () {
+    Route::prefix('permissions')->name('permissions.')->controller(PermissionController::class)->group(function () {
         Route::get('/', 'index')
             ->name('index')
             ->middleware(CheckPermission::class . ':permission.index');
