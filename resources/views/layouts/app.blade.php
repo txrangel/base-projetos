@@ -29,12 +29,12 @@
 
             <!-- Page Content -->
             <main>
-                {{-- @if (session('sucess'))
+                @if (session('sucess'))
                     @include('components.alerts.sucess')
                 @endif
                 @if (session('error'))
                     @include('components.alerts.error')
-                @endif --}}
+                @endif
                 @yield('content')
             </main>
         </div>
