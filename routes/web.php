@@ -26,6 +26,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/{id}/update', 'update')
             ->name('update')
             ->middleware(CheckPermission::class . ':profile.update');
+        Route::get('/{id}/permissions', 'editPermissions')
+            ->name('permissions.edit')
+            ->middleware(CheckPermission::class . ':profile.permissions.edit');
+        Route::put('/{id}/permissions', 'updatePermissions')
+            ->name('permissions.update')
+            ->middleware(CheckPermission::class . ':profile.permissions.update');
         Route::delete('/{id}/destroy', 'destroy')
             ->name('destroy')
             ->middleware(CheckPermission::class . ':profile.destroy');
@@ -68,6 +74,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/{id}/update', 'update')
             ->name('update')
             ->middleware(CheckPermission::class . ':user.update');
+        Route::get('/{id}/profiles', 'editProfiles')
+            ->name('profiles.edit')
+            ->middleware(CheckPermission::class . ':user.profiles.edit');
+        Route::put('/{id}/profiles', 'updateProfiles')
+            ->name('profiles.update')
+            ->middleware(CheckPermission::class . ':user.profiles.update');
         Route::delete('/{id}/destroy', 'destroy')
             ->name('destroy')
             ->middleware(CheckPermission::class . ':user.destroy');

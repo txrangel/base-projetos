@@ -49,4 +49,8 @@ class ProfileService
             throw $th;
         }
     }
+    public function syncPermissions(Profile $profile, array $permissionIds): array
+    {
+        return $profile->permissions()->sync(ids: $permissionIds);
+    }
 }

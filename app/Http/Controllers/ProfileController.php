@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileCreateUpdate;
+use App\Services\PermissionService;
 use App\Services\ProfileService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -53,6 +55,24 @@ class ProfileController extends Controller
         try {
             $this->profileService->delete(id: $id);
             return Redirect::route(route: 'profiles.index')->with(key: 'success', value: 'Perfil excluído com sucesso!');
+        } catch (\Exception $e) {
+            return back()->with(key: 'error', value: $e->getMessage());
+        }
+    }
+    public function editPermissions(int $id,PermissionService $permissionService): View
+    {
+        $perfil         = $this->profileService->findById(id: $id);
+        $permissions    = $permissionService->getAllPermissions();
+        return view(view: 'profiles.permissions.edit', data: compact(var_name: ['perfil', 'permissions']));
+    }
+
+    public function updatePermissions(Request $request, int $id): RedirectResponse
+    {
+        try {
+            $permissionIds = $request->input('permissions', []);
+            $perfil         = $this->profileService->findById(id: $id);
+            $this->profileService->syncPermissions($perfil, $permissionIds);
+            return redirect()->route('profiles.index')->with('success', 'Permissões do perfil alteradas com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage());
         }

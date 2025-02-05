@@ -58,4 +58,8 @@ class UserService
             throw $th;
         }
     }
+    public function syncProfiles(User $user, array $profileIds): array
+    {
+        return $user->profiles()->sync(ids: $profileIds);
+    }
 }

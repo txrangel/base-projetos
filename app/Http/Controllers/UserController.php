@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreateUpdate;
+use App\Services\ProfileService;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -53,6 +55,24 @@ class UserController extends Controller
         try {
             $this->userService->delete(id: $id);
             return Redirect::route(route: 'users.index')->with(key: 'success', value: 'Perfil excluído com sucesso!');
+        } catch (\Exception $e) {
+            return back()->with(key: 'error', value: $e->getMessage());
+        }
+    }
+    public function editProfiles(int $id,ProfileService $profileService): View
+    {
+        $profiles = $profileService->getAllProfiles();
+        $user  = $this->userService->findById(id: $id);
+        return view(view: 'users.profiles.edit', data: compact(var_name: ['user', 'profiles']));
+    }
+
+    public function updateProfiles(Request $request, int $id): RedirectResponse
+    {
+        try {
+            $profileIds = $request->input('profiles', []);
+            $user       = $this->userService->findById(id: $id);
+            $this->userService->syncProfiles($user, $profileIds);
+            return redirect()->route('users.index')->with('success', 'Perfis dos usuários alterados com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage());
         }
