@@ -2,59 +2,56 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use App\Services\ProfileService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): View
+    protected $profileService;
+
+    public function __construct(ProfileService $profileService)
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $this->profileService = $profileService;
     }
-
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function index()
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $perfis = $this->profileService->getPaginate();
+        return view('profiles.index', compact('perfis'));
+    }
+    public function create()
+    {
+        return view(view: 'profiles.create');
+    }
+    public function edit(int $id)
+    {
+        $perfil  = $this->profileService->findById(id: $id);
+        return view(view: 'profiles.edit', data: compact(var_name: 'perfil'));
+    }
+    public function store(Request $request)
+    {
+        try {
+            $this->profileService->create(data: $request->all());
+            return redirect()->route(route: 'profiles.index')->with('success', value: 'Perfil criado com sucesso!');
+        } catch (\Exception $e) {
+            return back()->with(key: 'error', value: $e->getMessage())->withInput();
         }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
-
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
+    public function update(Request $request,int $id)
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        try {
+            $this->profileService->update(id: $id, data: $request->all());
+            return redirect()->route(route: 'profiles.index')->with(key: 'success', value: 'Perfil atualizado com sucesso!');
+        } catch (\Exception $e) {
+            return back()->with(key: 'error', value: $e->getMessage())->withInput();
+        }
+    }
+    public function destroy(int $id)
+    {
+        try {
+            $this->profileService->delete(id: $id);
+            return redirect()->route(route: 'profiles.index')->with(key: 'success', value: 'Perfil excluído com sucesso!');
+        } catch (\Exception $e) {
+            return back()->with(key: 'error', value: $e->getMessage());
+        }
     }
 }
