@@ -41,6 +41,9 @@
                                         <a href="{{ route('users.edit', $user->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">
                                             {{ __('Editar') }}
                                         </a>
+                                        <a href="{{ route('users.profiles.edit', $user->id) }}" class="text-green-600 dark:text-green-500 hover:underline">
+                                            {{ __('Perfis') }}
+                                        </a>
                                         <button onclick="openDeleteModal('Você tem certeza que deseja excluir o usuário: {{ $user->name }}?', '{{ route('users.destroy', $user->id) }}')"
                                                 class="text-red-600 dark:text-red-500 hover:underline">
                                             {{ __('Excluir') }}
