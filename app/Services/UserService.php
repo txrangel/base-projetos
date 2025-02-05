@@ -6,6 +6,8 @@ use App\Repositories\UserRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendPasswordMail;
 
 class UserService
 {
@@ -30,9 +32,12 @@ class UserService
     public function create(array $data): User
     {
         try {
-            $randomPassword = Str::random(10);
-            $data['password'] = Hash::make($randomPassword);
-            return $this->userRepository->create(data: $data);
+            $randomPassword     = Str::random(length: 10);
+            $data['password']   = Hash::make(value: $randomPassword);
+            $user               = $this->userRepository->create(data: $data);
+            Mail::to(users: $user->email)->send(mailable: new SendPasswordMail(password: $randomPassword));
+
+            return $user;
         } catch (\Throwable $th) {
             throw $th;
         }
