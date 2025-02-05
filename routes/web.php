@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Middleware\CheckPermission;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,27 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/{id}/destroy', 'destroy')
             ->name('destroy')
             ->middleware(CheckPermission::class . ':permission.destroy');
+    });
+
+    Route::prefix('users')->name('users.')->controller(UserController::class)->group(function () {
+        Route::get('/', 'index')
+            ->name('index')
+            ->middleware(CheckPermission::class . ':user.index');
+        Route::get('/create', 'create')
+            ->name('create')
+            ->middleware(CheckPermission::class . ':user.create');
+        Route::post('/store', 'store')
+            ->name('store')
+            ->middleware(CheckPermission::class . ':user.store');
+        Route::get('/{id}/edit', 'edit')
+            ->name('edit')
+            ->middleware(CheckPermission::class . ':user.edit');
+        Route::put('/{id}/update', 'update')
+            ->name('update')
+            ->middleware(CheckPermission::class . ':user.update');
+        Route::delete('/{id}/destroy', 'destroy')
+            ->name('destroy')
+            ->middleware(CheckPermission::class . ':user.destroy');
     });
 });
 
