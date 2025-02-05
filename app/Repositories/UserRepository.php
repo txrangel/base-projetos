@@ -14,11 +14,11 @@ class UserRepository
     }
     public function all()
     {
-        return $this->model->all();
+        return $this->model->orderby('name')->get();
     }
     public function paginate(int $perPage = 10): LengthAwarePaginator
     {
-        return $this->model->paginate(perPage: $perPage);
+        return $this->model->orderby('name')->paginate(perPage: $perPage);
     }
     public function findById(int $id): User
     {
