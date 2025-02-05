@@ -19,19 +19,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->middleware(CheckPermission::class . ':profile.create');
         Route::post('/store', 'store')
             ->name('store')
-            ->middleware(CheckPermission::class . ':profile.store');
+            ->middleware(CheckPermission::class . ':profile.create');
         Route::get('/{id}/edit', 'edit')
             ->name('edit')
             ->middleware(CheckPermission::class . ':profile.edit');
         Route::put('/{id}/update', 'update')
             ->name('update')
-            ->middleware(CheckPermission::class . ':profile.update');
+            ->middleware(CheckPermission::class . ':profile.edit');
         Route::get('/{id}/permissions', 'editPermissions')
             ->name('permissions.edit')
             ->middleware(CheckPermission::class . ':profile.permissions.edit');
         Route::put('/{id}/permissions', 'updatePermissions')
             ->name('permissions.update')
-            ->middleware(CheckPermission::class . ':profile.permissions.update');
+            ->middleware(CheckPermission::class . ':profile.permissions.edit');
         Route::delete('/{id}/destroy', 'destroy')
             ->name('destroy')
             ->middleware(CheckPermission::class . ':profile.destroy');
@@ -46,13 +46,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->middleware(CheckPermission::class . ':permission.create');
         Route::post('/store', 'store')
             ->name('store')
-            ->middleware(CheckPermission::class . ':permission.store');
+            ->middleware(CheckPermission::class . ':permission.create');
         Route::get('/{id}/edit', 'edit')
             ->name('edit')
             ->middleware(CheckPermission::class . ':permission.edit');
         Route::put('/{id}/update', 'update')
             ->name('update')
-            ->middleware(CheckPermission::class . ':permission.update');
+            ->middleware(CheckPermission::class . ':permission.edit');
         Route::delete('/{id}/destroy', 'destroy')
             ->name('destroy')
             ->middleware(CheckPermission::class . ':permission.destroy');
@@ -67,19 +67,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->middleware(CheckPermission::class . ':user.create');
         Route::post('/store', 'store')
             ->name('store')
-            ->middleware(CheckPermission::class . ':user.store');
+            ->middleware(CheckPermission::class . ':user.create');
         Route::get('/{id}/edit', 'edit')
             ->name('edit')
             ->middleware(CheckPermission::class . ':user.edit');
         Route::put('/{id}/update', 'update')
             ->name('update')
-            ->middleware(CheckPermission::class . ':user.update');
+            ->middleware(CheckPermission::class . ':user.edit');
         Route::get('/{id}/profiles', 'editProfiles')
             ->name('profiles.edit')
             ->middleware(CheckPermission::class . ':user.profiles.edit');
         Route::put('/{id}/profiles', 'updateProfiles')
             ->name('profiles.update')
-            ->middleware(CheckPermission::class . ':user.profiles.update');
+            ->middleware(CheckPermission::class . ':user.profiles.edit');
         Route::delete('/{id}/destroy', 'destroy')
             ->name('destroy')
             ->middleware(CheckPermission::class . ':user.destroy');
