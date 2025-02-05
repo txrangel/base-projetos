@@ -2,7 +2,7 @@
 namespace App\Services;
 
 use App\Models\Profile;
-use App\Repositories\profileRepository;
+use App\Repositories\ProfileRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ProfileService
