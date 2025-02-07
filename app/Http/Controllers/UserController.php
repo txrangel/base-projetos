@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreateUpdate;
+use App\Services\PasswordService;
 use App\Services\ProfileService;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
@@ -32,10 +33,10 @@ class UserController extends Controller
         $user  = $this->userService->findById(id: $id);
         return view(view: 'users.edit', data: compact(var_name: 'user'));
     }
-    public function store(UserCreateUpdate $request): RedirectResponse
+    public function store(UserCreateUpdate $request,PasswordService $passwordService): RedirectResponse
     {
         try {
-            $this->userService->create(data: $request->all());
+            $this->userService->create(data: $request->all(),passwordService: $passwordService);
             return Redirect::route(route: 'users.index')->with(key: 'success', value: 'Perfil criado com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage())->withInput();
