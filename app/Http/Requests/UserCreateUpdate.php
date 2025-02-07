@@ -24,8 +24,15 @@ class UserCreateUpdate extends FormRequest
     {
         $id = $this->route(param: 'id');
         return [
-            'name' => ['required','string'],
-            'email' => ['required',Rule::unique(table: 'users')->ignore(id: $id),'email'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => [                
+                'required',
+                'string',
+                'lowercase',
+                'email',
+                'max:255',
+                Rule::unique(table: 'users')->ignore(id: $id),'email'
+            ],
         ];
     }
 }
