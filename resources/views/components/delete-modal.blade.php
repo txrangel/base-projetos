@@ -1,5 +1,5 @@
 <div id="deleteModal" class="fixed inset-0 flex items-center max-h-screen justify-center bg-black bg-opacity-50 hidden">
-    <div class="bg-white dark:bg-gray-900 w-1/2 rounded-md">
+    <div class="bg-gray-100 dark:bg-gray-900 w-1/2 rounded-md">
         <div class="p-4 border-b">
             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Confirmar Exclusão') }}</h2>
         </div>
