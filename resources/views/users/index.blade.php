@@ -47,6 +47,11 @@
                                             {{ __('Perfis') }}
                                         </a>
                                     @endcan
+                                    @can('updatePassword', $user)
+                                        <a href="{{ route('users.edit.password', $user->id) }}" class="text-orange-600 dark:text-orange-500 hover:underline">
+                                            {{ __('Editar Senha') }}
+                                        </a>
+                                    @endcan
                                     @can('delete', $user)
                                         <button onclick="openDeleteModal('Você tem certeza que deseja excluir o usuário: {{ $user->name }}?', '{{ route('users.destroy', $user->id) }}')"
                                                 class="text-red-600 dark:text-red-500 hover:underline">

@@ -37,7 +37,13 @@ class UserPolicy
     {
         return $user->hasPermission('user.edit');
     }
-
+        /**
+     * Verifica se o usuário pode editar a senha de um usuário.
+     */
+    public function updatePassword(User $user, User $model): bool
+    {
+        return $user->hasPermission('user.edit.password');
+    }
     /**
      * Verifica se o usuário pode excluir um usuário.
      */

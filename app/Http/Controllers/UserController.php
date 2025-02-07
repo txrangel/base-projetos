@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PasswordCreateUpdate;
 use App\Http\Requests\UserCreateUpdate;
 use App\Services\PasswordService;
 use App\Services\ProfileService;
@@ -33,6 +34,11 @@ class UserController extends Controller
         $user  = $this->userService->findById(id: $id);
         return view(view: 'users.edit', data: compact(var_name: 'user'));
     }
+    public function editPassword(int $id): View
+    {
+        $user  = $this->userService->findById(id: $id);
+        return view(view: 'users.editPassword', data: compact(var_name: 'user'));
+    }
     public function store(UserCreateUpdate $request,PasswordService $passwordService): RedirectResponse
     {
         try {
@@ -47,6 +53,16 @@ class UserController extends Controller
         try {
             $this->userService->update(id: $id, data: $request->all());
             return Redirect::route(route: 'users.index')->with(key: 'success', value: 'Perfil atualizado com sucesso!');
+        } catch (\Exception $e) {
+            return back()->with(key: 'error', value: $e->getMessage())->withInput();
+        }
+    }
+    public function updatePassword(PasswordCreateUpdate $request,int $id,PasswordService $passwordService): RedirectResponse
+    {
+        try {
+            $data['password'] = $passwordService->make(password: $request->password);
+            $this->userService->update(id: $id, data: $data);
+            return Redirect::route(route: 'users.index')->with(key: 'success', value: 'Senha atualizada com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage())->withInput();
         }

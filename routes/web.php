@@ -72,8 +72,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->name('edit')
             ->middleware(CheckPermission::class . ':user.edit');
         Route::put('/{id}/update', 'update')
-            ->name('update')
-            ->middleware(CheckPermission::class . ':user.edit');
+            ->name('update');
+        Route::get('/{id}/edit/password', 'editPassword')
+            ->name('edit.password')
+            ->middleware(CheckPermission::class . ':user.edit.password');
+        Route::put('/{id}/update/password', 'updatePassword')
+            ->name('update.password')
+            ->middleware(CheckPermission::class . ':user.edit.password');
         Route::get('/{id}/profiles', 'editProfiles')
             ->name('profiles.edit')
             ->middleware(CheckPermission::class . ':user.profiles.edit');

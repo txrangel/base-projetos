@@ -25,6 +25,7 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'user.index']);
         Permission::create(['name' => 'user.create']);
         Permission::create(['name' => 'user.edit']);
+        Permission::create(['name' => 'user.edit.password']);
         Permission::create(['name' => 'user.profiles.edit']);
         Permission::create(['name' => 'user.destroy']);
     }
