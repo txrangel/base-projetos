@@ -66,7 +66,7 @@ docker run --rm \
 
 ### Melhorias Futuras
 
-#### Segurança
 - Ajustar controllers do breeze para seguir as boas práticas dos serviços
 - Adicionar LiveWire para ficar dinamico e com carregamento mais rapido
-- Criar componentes de tabela que seja possivel ordenar e filtrar itens
+- Adicionar os componentes do Laravel Filament
+- ajustar nome dos serviços nos controllers, repositorios nos serviços e modelos nos repositórios para seguir o mesmo padrão
