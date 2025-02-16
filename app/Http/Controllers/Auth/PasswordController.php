@@ -14,7 +14,7 @@ class PasswordController extends Controller
     /**
      * Update the user's password.
      */
-    public function update(Request $request, PasswordService $passwordService, UserService $userService): RedirectResponse
+    public function update(Request $request, PasswordService $passwordService, UserService $service): RedirectResponse
     {
         try {
             $validated = $request->validateWithBag('updatePassword', [
@@ -22,7 +22,7 @@ class PasswordController extends Controller
                 'password' => ['required', Password::defaults(), 'confirmed'],
             ]);
             $data['password'] = $passwordService->make(password: $validated['password']);
-            $userService->update(id: $request->user()->id,data: $data);
+            $service->update(id: $request->user()->id,data: $data);
             return back()->with(key: 'status', value: 'password-updated');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage())->withInput();

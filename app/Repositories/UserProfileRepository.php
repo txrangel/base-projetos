@@ -8,9 +8,9 @@ class UserProfileRepository
 {
     protected $model;
 
-    public function __construct(User $user)
+    public function __construct(User $model)
     {
-        $this->model = $user;
+        $this->model = $model;
     }
     public function save(User $user): bool
     {

@@ -8,9 +8,9 @@ class ProfileRepository
 {
     protected $model;
 
-    public function __construct(Profile $profile)
+    public function __construct(Profile $model)
     {
-        $this->model = $profile;
+        $this->model = $model;
     }
     public function all()
     {

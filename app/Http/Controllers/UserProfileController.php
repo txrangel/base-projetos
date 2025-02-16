@@ -11,11 +11,11 @@ use App\Services\UserProfileService;
 
 class UserProfileController extends Controller
 {
-    protected $UserprofileService;
+    protected $service;
 
-    public function __construct(UserProfileService $userProfileService)
+    public function __construct(UserProfileService $service)
     {
-        $this->UserprofileService = $userProfileService;
+        $this->service = $service;
     }
     public function edit(Request $request): View
     {
@@ -26,7 +26,7 @@ class UserProfileController extends Controller
     public function update(UserProfileUpdate $request): RedirectResponse
     {
         try {
-            if ($this->UserprofileService->update($request))
+            if ($this->service->update($request))
                 return Redirect::route('user.profile.edit')->with(key: 'success', value: 'Perfil alterado!');
             else
                 return back()->with(key: 'error', value: "Perfil não alterado!")->withInput();

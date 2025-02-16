@@ -9,29 +9,29 @@ use App\Mail\SendPasswordMail;
 
 class UserService
 {
-    protected $userRepository;
+    protected $repository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $repository)
     {
-        $this->userRepository = $userRepository;
+        $this->repository = $repository;
     }
     public function getAllProfiles()
     {
-        return $this->userRepository->all();
+        return $this->repository->all();
     }
     public function getPaginate(int $perPage = 10): LengthAwarePaginator
     {
-        return $this->userRepository->paginate(perPage: $perPage);
+        return $this->repository->paginate(perPage: $perPage);
     }
     public function findById(int $id): User
     {
-        return $this->userRepository->findById(id: $id);
+        return $this->repository->findById(id: $id);
     }
     public function create(array $data, PasswordService $passwordService): User
     {
         try {
             $data['password']   = $passwordService->generate();
-            $user               = $this->userRepository->create(data: $data);
+            $user               = $this->repository->create(data: $data);
             Mail::to(users: $user->email)->send(mailable: new SendPasswordMail(password: $data['password']));
 
             return $user;
@@ -42,7 +42,7 @@ class UserService
     public function update(int $id, array $data): User
     {
         try {
-            return $this->userRepository->update(id: $id, data: $data);
+            return $this->repository->update(id: $id, data: $data);
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -50,7 +50,7 @@ class UserService
     public function delete(int $id): bool
     {
         try {
-            return $this->userRepository->delete(id: $id);
+            return $this->repository->delete(id: $id);
         } catch (\Throwable $th) {
             throw $th;
         }

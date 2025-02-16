@@ -7,28 +7,28 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class PermissionService
 {
-    protected $permissionRepository;
+    protected $repository;
 
-    public function __construct(PermissionRepository $permissionRepository)
+    public function __construct(PermissionRepository $repository)
     {
-        $this->permissionRepository = $permissionRepository;
+        $this->repository = $repository;
     }
     public function getAllPermissions()
     {
-        return $this->permissionRepository->all();
+        return $this->repository->all();
     }
     public function getPaginate(int $perPage = 10): LengthAwarePaginator
     {
-        return $this->permissionRepository->paginate(perPage: $perPage);
+        return $this->repository->paginate(perPage: $perPage);
     }
     public function findById(int $id): Permission
     {
-        return $this->permissionRepository->findById(id: $id);
+        return $this->repository->findById(id: $id);
     }
     public function create(array $data): Permission
     {
         try {
-            return $this->permissionRepository->create(data: $data);
+            return $this->repository->create(data: $data);
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -36,7 +36,7 @@ class PermissionService
     public function update(int $id, array $data): Permission
     {
         try {
-            return $this->permissionRepository->update(id: $id, data: $data);
+            return $this->repository->update(id: $id, data: $data);
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -44,7 +44,7 @@ class PermissionService
     public function delete(int $id): bool
     {
         try {
-            return $this->permissionRepository->delete(id: $id);
+            return $this->repository->delete(id: $id);
         } catch (\Throwable $th) {
             throw $th;
         }

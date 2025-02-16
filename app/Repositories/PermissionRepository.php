@@ -8,9 +8,9 @@ class PermissionRepository
 {
     protected $model;
 
-    public function __construct(Permission $permission)
+    public function __construct(Permission $model)
     {
-        $this->model = $permission;
+        $this->model = $model;
     }
     public function all()
     {

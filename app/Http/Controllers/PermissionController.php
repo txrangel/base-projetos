@@ -10,15 +10,15 @@ use Illuminate\View\View;
 
 class PermissionController extends Controller
 {
-    protected $permissionService;
+    protected $service;
 
-    public function __construct(PermissionService $permissionService)
+    public function __construct(PermissionService $service)
     {
-        $this->permissionService = $permissionService;
+        $this->service = $service;
     }
     public function index(): View
     {
-        $permissions = $this->permissionService->getPaginate();
+        $permissions = $this->service->getPaginate();
         return view(view: 'permissions.index', data: compact(var_name: 'permissions'));
     }
     public function create(): View
@@ -27,13 +27,13 @@ class PermissionController extends Controller
     }
     public function edit(int $id): View
     {
-        $permission  = $this->permissionService->findById(id: $id);
+        $permission  = $this->service->findById(id: $id);
         return view(view: 'permissions.edit', data: compact(var_name: 'permission'));
     }
     public function store(PermissionCreateUpdate $request): RedirectResponse
     {
         try {
-            $this->permissionService->create(data: $request->all());
+            $this->service->create(data: $request->all());
             return Redirect::route(route: 'permissions.index')->with(key: 'success', value: 'Permissão criada com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage())->withInput();
@@ -42,7 +42,7 @@ class PermissionController extends Controller
     public function update(PermissionCreateUpdate $request,int $id): RedirectResponse
     {
         try {
-            $this->permissionService->update(id: $id, data: $request->all());
+            $this->service->update(id: $id, data: $request->all());
             return Redirect::route(route: 'permissions.index')->with(key: 'success', value: 'Permissão atualizada com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage())->withInput();
@@ -51,7 +51,7 @@ class PermissionController extends Controller
     public function destroy(int $id): RedirectResponse
     {
         try {
-            $this->permissionService->delete(id: $id);
+            $this->service->delete(id: $id);
             return Redirect::route(route: 'permissions.index')->with(key: 'success', value: 'Permissão excluída com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage());

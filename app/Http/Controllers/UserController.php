@@ -14,15 +14,15 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    protected $userService;
+    protected $service;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $service)
     {
-        $this->userService = $userService;
+        $this->service = $service;
     }
     public function index(): View
     {
-        $users = $this->userService->getPaginate();
+        $users = $this->service->getPaginate();
         return view(view: 'users.index', data: compact(var_name: 'users'));
     }
     public function create(): View
@@ -31,18 +31,18 @@ class UserController extends Controller
     }
     public function edit(int $id): View
     {
-        $user  = $this->userService->findById(id: $id);
+        $user  = $this->service->findById(id: $id);
         return view(view: 'users.edit', data: compact(var_name: 'user'));
     }
     public function editPassword(int $id): View
     {
-        $user  = $this->userService->findById(id: $id);
+        $user  = $this->service->findById(id: $id);
         return view(view: 'users.editPassword', data: compact(var_name: 'user'));
     }
     public function store(UserCreateUpdate $request,PasswordService $passwordService): RedirectResponse
     {
         try {
-            $this->userService->create(data: $request->all(),passwordService: $passwordService);
+            $this->service->create(data: $request->all(),passwordService: $passwordService);
             return Redirect::route(route: 'users.index')->with(key: 'success', value: 'Perfil criado com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage())->withInput();
@@ -51,7 +51,7 @@ class UserController extends Controller
     public function update(UserCreateUpdate $request,int $id): RedirectResponse
     {
         try {
-            $this->userService->update(id: $id, data: $request->all());
+            $this->service->update(id: $id, data: $request->all());
             return Redirect::route(route: 'users.index')->with(key: 'success', value: 'Perfil atualizado com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage())->withInput();
@@ -61,7 +61,7 @@ class UserController extends Controller
     {
         try {
             $data['password'] = $passwordService->make(password: $request->password);
-            $this->userService->update(id: $id, data: $data);
+            $this->service->update(id: $id, data: $data);
             return Redirect::route(route: 'users.index')->with(key: 'success', value: 'Senha atualizada com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage())->withInput();
@@ -70,16 +70,16 @@ class UserController extends Controller
     public function destroy(int $id): RedirectResponse
     {
         try {
-            $this->userService->delete(id: $id);
+            $this->service->delete(id: $id);
             return Redirect::route(route: 'users.index')->with(key: 'success', value: 'Perfil excluído com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage());
         }
     }
-    public function editProfiles(int $id,ProfileService $profileService): View
+    public function editProfiles(int $id,ProfileService $service): View
     {
-        $profiles = $profileService->getAllProfiles();
-        $user  = $this->userService->findById(id: $id);
+        $profiles = $service->getAllProfiles();
+        $user  = $this->service->findById(id: $id);
         return view(view: 'users.profiles.edit', data: compact(var_name: ['user', 'profiles']));
     }
 
@@ -87,8 +87,8 @@ class UserController extends Controller
     {
         try {
             $profileIds = $request->input('profiles', []);
-            $user       = $this->userService->findById(id: $id);
-            $this->userService->syncProfiles($user, $profileIds);
+            $user       = $this->service->findById(id: $id);
+            $this->service->syncProfiles($user, $profileIds);
             return redirect()->route('users.index')->with('success', 'Perfis dos usuários alterados com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage());

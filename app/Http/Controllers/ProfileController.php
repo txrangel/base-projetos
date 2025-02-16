@@ -12,15 +12,15 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    protected $profileService;
+    protected $service;
 
-    public function __construct(ProfileService $profileService)
+    public function __construct(ProfileService $service)
     {
-        $this->profileService = $profileService;
+        $this->service = $service;
     }
     public function index(): View
     {
-        $profiles = $this->profileService->getPaginate();
+        $profiles = $this->service->getPaginate();
         return view(view: 'profiles.index', data: compact(var_name: 'profiles'));
     }
     public function create(): View
@@ -29,13 +29,13 @@ class ProfileController extends Controller
     }
     public function edit(int $id): View
     {
-        $profile  = $this->profileService->findById(id: $id);
+        $profile  = $this->service->findById(id: $id);
         return view(view: 'profiles.edit', data: compact(var_name: 'profile'));
     }
     public function store(ProfileCreateUpdate $request): RedirectResponse
     {
         try {
-            $this->profileService->create(data: $request->all());
+            $this->service->create(data: $request->all());
             return Redirect::route(route: 'profiles.index')->with(key: 'success', value: 'Perfil criado com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage())->withInput();
@@ -44,7 +44,7 @@ class ProfileController extends Controller
     public function update(ProfileCreateUpdate $request,int $id): RedirectResponse
     {
         try {
-            $this->profileService->update(id: $id, data: $request->all());
+            $this->service->update(id: $id, data: $request->all());
             return Redirect::route(route: 'profiles.index')->with(key: 'success', value: 'Perfil atualizado com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage())->withInput();
@@ -53,16 +53,16 @@ class ProfileController extends Controller
     public function destroy(int $id): RedirectResponse
     {
         try {
-            $this->profileService->delete(id: $id);
+            $this->service->delete(id: $id);
             return Redirect::route(route: 'profiles.index')->with(key: 'success', value: 'Perfil excluído com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage());
         }
     }
-    public function editPermissions(int $id,PermissionService $permissionService): View
+    public function editPermissions(int $id,PermissionService $service): View
     {
-        $profile         = $this->profileService->findById(id: $id);
-        $permissions    = $permissionService->getAllPermissions();
+        $profile         = $this->service->findById(id: $id);
+        $permissions    = $service->getAllPermissions();
         return view(view: 'profiles.permissions.edit', data: compact(var_name: ['profile', 'permissions']));
     }
 
@@ -70,8 +70,8 @@ class ProfileController extends Controller
     {
         try {
             $permissionIds = $request->input('permissions', []);
-            $profile         = $this->profileService->findById(id: $id);
-            $this->profileService->syncPermissions($profile, $permissionIds);
+            $profile         = $this->service->findById(id: $id);
+            $this->service->syncPermissions($profile, $permissionIds);
             return redirect()->route('profiles.index')->with('success', 'Permissões do profile alteradas com sucesso!');
         } catch (\Exception $e) {
             return back()->with(key: 'error', value: $e->getMessage());
