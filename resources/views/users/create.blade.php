@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('content')
     @can('create',App\Models\User::class)
-        <div class="p-4 bg-gray-100 dark:bg-gray-800 shadow sm:rounded-lg space-y-2">
+        <div class="p-4 bg-zinc-100 dark:bg-zinc-800 shadow sm:rounded-lg space-y-2">
             <section class="relative overflow-auto">
                 <header>
-                    <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                    <h2 class="text-lg font-medium text-zinc-900 dark:text-zinc-100">
                         {{ __('Novo Usuário') }}
                     </h2>
-                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                    <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
                         {{ __('Preencha as informações para cadastrar um novo Usuário.') }}
                     </p>
                 </header>

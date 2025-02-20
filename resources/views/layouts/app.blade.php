@@ -14,7 +14,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="min-h-screen bg-gray-300 dark:bg-gray-700 p-4">
+    <body class="min-h-screen bg-zinc-300 dark:bg-zinc-700 p-4">
         @if (session('sucess'))
             @include('components.alerts.sucess')
         @endif
