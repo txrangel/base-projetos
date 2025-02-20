@@ -62,11 +62,7 @@ docker run --rm \
 ```bash
 ./vendor/bin/sail artisan storage:link
 ```
-
-
-### Melhorias Futuras
-
-- Ajustar controllers do breeze para seguir as boas práticas dos serviços
-- Adicionar LiveWire para ficar dinamico e com carregamento mais rapido
-- Adicionar os componentes do Laravel Filament
-- ajustar nome dos serviços nos controllers, repositorios nos serviços e modelos nos repositórios para seguir o mesmo padrão
+#### Criar base minima
+```bash
+./vendor/bin/sail artisan db:seed
+```
