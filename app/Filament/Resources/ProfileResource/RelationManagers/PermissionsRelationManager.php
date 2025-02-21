@@ -42,21 +42,21 @@ class PermissionsRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\AttachAction::make()
+                ->preloadRecordSelect() // Evita múltiplas associações
                 ->form(fn (Tables\Actions\AttachAction $action): array => [
                     $action->getRecordSelect()
-                        ->options(Permission::pluck('name', 'id')->toArray())
+                        ->options(fn ($livewire) => Permission::whereNotIn('id', 
+                            $livewire->ownerRecord->permissions->pluck('id')
+                        )->pluck('name', 'id')->toArray())
                         ->required(),
-                ]),
+                ]),  
             ])
             ->actions([
-                Tables\Actions\DetachAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                //Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DetachBulkAction::make(),
             ]);
     }
 }
